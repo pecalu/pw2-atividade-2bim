@@ -1,6 +1,8 @@
 import java.time.LocalDate;
 import java.util.Date;
 
+import static javax.management.Query.or;
+
 public class Usuario {
     private int código;
     private String nome;
@@ -56,11 +58,31 @@ public class Usuario {
     }
 
     void exibirDados() {
+        tentativas_de_acesso += 1;
         System.out.println("Codigo: " + código);
         System.out.println("Usuario: " + nome);
         System.out.println("Senha: " + senha);
         System.out.println("Trocar senha:" + primeiro_acesso);
         System.out.println("Status: " + status);
+    }
+
+    String autenticar(String senha){
+        //this.senha = senha;
+        if (status.equals(StatusUsuarioEnum.INATIVO) || status.equals(StatusUsuarioEnum.BLOQUEADO) ){
+            return "Acesso negado";
+        }
+            if (tentativas_de_acesso >= 3){
+                status = StatusUsuarioEnum.BLOQUEADO;
+                return "Acesso negado";
+            }
+                if (this.senha == senha) {
+                    tentativas_de_acesso = 0;
+                    return "acesso liberado";
+                }else{
+                    tentativas_de_acesso += 1;
+                    return "Usuario/senha invalidos";
+                }
+
     }
 
 
