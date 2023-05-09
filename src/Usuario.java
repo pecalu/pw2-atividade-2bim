@@ -9,7 +9,7 @@ public class Usuario {
     private String senha;
     private int tentativas_de_acesso;
     private boolean primeiro_acesso ;
-    private LocalDate data_de_inativação;
+    private LocalDate data_de_inativação;//dataInativacao
     private StatusUsuarioEnum status;
 
     public int getCódigo() {return código;}
@@ -58,13 +58,13 @@ public class Usuario {
     }
 
     void exibirDados() {
-        tentativas_de_acesso += 1;
         System.out.println("Codigo: " + código);
         System.out.println("Usuario: " + nome);
         System.out.println("Senha: " + senha);
         System.out.println("Trocar senha:" + primeiro_acesso);
         System.out.println("Status: " + status);
     }
+
 
     String autenticar(String senha){
         //this.senha = senha;
@@ -82,9 +82,5 @@ public class Usuario {
                     tentativas_de_acesso += 1;
                     return "Usuario/senha invalidos";
                 }
-
     }
-
-
 }
-
